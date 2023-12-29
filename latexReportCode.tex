@@ -1,0 +1,286 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{float}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Waste and Recycling Classification DIP Project Report}
+\author{Fahad Kamran 20i-0983}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+The waste classification project aims to automatically categorize waste items into organic and recyclable classes using machine learning techniques. Proper waste classification is crucial for effective recycling and waste management.
+
+\section{Data Collection and Preprocessing}
+The training and testing datasets were collected from Kaggle and saved the specified directories: "D:/DATASET/DATASET/TRAIN" for training and "D:/DATASET/DATASET/TEST" for testing. Images were read using OpenCV, converted to grayscale, and their histograms were equalized to enhance features.
+
+\section{Step by Step Method Guide}
+\subsection{Introduction}
+The following document provides a step-by-step guide to a waste classification project. This project involves loading and preprocessing image data, splitting it into training and validation sets, and training a Support Vector Machine (SVM) classifier for waste classification.
+\subsection{Data Collection and Preprocessing}
+The training dataset is collected and preprocessed using the following steps:
+
+\begin{enumerate}
+    \item Iterate through subdirectories ('O' and 'R').
+    \item Read each image using OpenCV.
+    \item Convert the image to grayscale.
+    \item Equalize the histogram of the grayscale image.
+\end{enumerate}
+
+\subsection{Splitting Data and Displaying Images}
+After successfully collecting and preprocessing the training data, the next crucial step is to split it into training and validation sets. This process is essential for assessing the model's performance and preventing overfitting. The \texttt{train\_test\_split} function from the \texttt{sklearn.model\_selection} module is employed for this purpose.
+
+The data is divided into training (\texttt{X\_train} and \texttt{y\_train}) and validation (\texttt{X\_val} and \texttt{y\_val}) sets. The split is performed with a test size of 20\% and a random seed of 42 for reproducibility.
+
+To gain insight into the training images, a random subset is selected and displayed. This provides a visual representation of the dataset, helping to verify that the images are correctly labeled and possess the desired characteristics.
+
+Similarly, a subset of random validation images is displayed to ensure that the validation set is representative of the overall dataset. This step aids in verifying that the model is trained on diverse data, enhancing its ability to generalize to new, unseen images.
+
+
+\subsection{Testing Data Collection and Preprocessing}
+The testing dataset is collected from Kaggle Waste Classification Dataset and preprocessed following the same steps as in the training dataset:
+
+\begin{enumerate}
+    \item Iterate through subdirectories ('O' and 'R').
+    \item Read each image using OpenCV.
+    \item Convert the image to grayscale.
+    \item Equalize the histogram of the grayscale image.
+\end{enumerate}
+
+
+\subsection{Displaying Random Testing Images}
+The effectiveness of the waste classification model relies not only on the training and validation sets but also on its ability to accurately classify new, unseen images. To assess the model's performance on the testing set, a subset of random testing images is selected and displayed.
+
+Similar to the training and validation sets, the testing dataset is collected, preprocessed, and then a random subset is chosen for visualization. The displayed images, along with their corresponding labels, provide a qualitative assessment of the model's ability to generalize to new data.
+
+
+\subsection{HOG Feature Extraction and SVM Training}
+
+To enhance the model's ability to distinguish between different waste categories, Histogram of Oriented Gradients (HOG) feature extraction is employed. HOG is a widely-used technique for object detection and classification, particularly in image processing.
+
+The process involves extracting features from the preprocessed images to capture information about the distribution of gradients and edges. These features are then fed into a Support Vector Machine (SVM) classifier for training. SVM is a robust and effective machine learning algorithm suitable for binary classification tasks, making it well-suited for waste classification.
+
+HOG feature extraction is performed on the training, validation, and testing sets separately. This ensures that the SVM model is trained and evaluated on data with consistent feature representations. The features obtained from the HOG extraction process serve as inputs to the SVM classifier, allowing it to learn the patterns and characteristics necessary for accurate waste classification.
+
+The integration of HOG feature extraction with SVM training enhances the model's discriminative capabilities, enabling it to make informed decisions based on the extracted features. This combination forms a powerful framework for waste classification, ultimately contributing to the model's accuracy and robustness.
+
+\subsection{Model Evaluation and Metrics}
+Once the SVM model is trained on the extracted HOG features, it is crucial to evaluate its performance on both the validation and testing sets. This section focuses on assessing the model's classification accuracy and effectiveness in making predictions.
+
+The evaluation metrics employed include:
+
+- **Confusion Matrix:** A table that summarizes the model's performance by comparing predicted and actual class labels. It provides insights into the number of true positives, true negatives, false positives, and false negatives.
+
+- **Accuracy:** The proportion of correctly classified instances among the total instances. It serves as a general indicator of the model's correctness.
+
+- **Precision:** The ratio of true positives to the sum of true positives and false positives. Precision measures the accuracy of positive predictions.
+
+- **Recall (Sensitivity):** The ratio of true positives to the sum of true positives and false negatives. Recall quantifies the model's ability to capture all positive instances.
+
+- **F1 Score:** The harmonic mean of precision and recall, providing a balanced measure that considers both false positives and false negatives.
+
+By systematically evaluating the model using these metrics, we gain a comprehensive understanding of its strengths and weaknesses. The confusion matrix visualizes the distribution of predictions, while accuracy, precision, recall, and F1 score offer nuanced insights into specific aspects of the model's performance.
+
+\subsection{Displaying Confusion Matrix}
+To gain a visual understanding of the model's classification performance, a confusion matrix is employed. The confusion matrix is a table that summarizes the model's predictions against the actual class labels for both the validation and testing sets.
+
+The confusion matrix visually presents the following key metrics:
+
+- **True Positives (TP):** The instances correctly predicted as positive.
+  
+- **True Negatives (TN):** The instances correctly predicted as negative.
+
+- **False Positives (FP):** The instances incorrectly predicted as positive.
+
+- **False Negatives (FN):** The instances incorrectly predicted as negative.
+
+These metrics are crucial for assessing the model's performance across different classes and understanding potential misclassifications. The confusion matrix is particularly effective in identifying specific areas where the model may need improvement.
+
+By displaying the confusion matrix, one can easily interpret the distribution of predictions and misclassifications. This visual representation enhances the model evaluation process, providing valuable insights into its strengths and weaknesses.
+
+\subsection{Model Saving}
+After successfully training the SVM model and evaluating its performance, the final step is to save the trained model for future use. Model saving is a critical aspect of the machine learning workflow as it preserves the trained weights, parameters, and architecture, allowing for easy deployment and reuse.
+
+In this section, the trained SVM model is saved using the \texttt{pickle} library, a widely-used tool for serializing Python objects. The model is serialized into a binary file, preserving its state and ensuring that it can be loaded and utilized later without the need for retraining.
+
+By saving the model, one can avoid the time-consuming process of training the model every time it needs to be deployed or applied to new data. Additionally, model saving facilitates model sharing and collaboration, enabling others to utilize the trained model for similar tasks.
+
+It is crucial to choose an appropriate file name and location for saving the model. This ensures that the saved model can be easily located and loaded when needed.
+
+This section serves as the final step in the waste classification pipeline, ensuring that the knowledge acquired during training is stored in a reusable and deployable format.
+
+\section{Algorithms}
+
+\subsection{Data Loading and Processing}
+The following pseudocode outlines the process of loading and processing the image data:
+
+\begin{lstlisting}[language=Python, caption=Data Loading and Processing Pseudocode]
+# Iterate through subdirectories (O and R)
+for folder_name in os.listdir(train_dataset_dir):
+    folder_path = os.path.join(train_dataset_dir, folder_name)
+
+    if os.path.isdir(folder_path):  # Ensure it's a directory
+        for file_name in os.listdir(folder_path):
+            file_path = os.path.join(folder_path, file_name)
+
+            # Check if the file exists
+            if os.path.isfile(file_path):
+                # Read the image using OpenCV
+                image = cv2.imread(file_path)
+                
+                if image is not None:
+                    # Convert the image to grayscale
+                    grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                    
+                    # Equalize the histogram
+                    enhanced_image = cv2.equalizeHist(grayscale_image)
+                    
+                    train_images.append(enhanced_image)
+                    train_labels.append(extract_label(folder_name))
+                else:
+                    print(f"Failed to read image: {file_path}")
+            else:
+                print(f"File not found: {file_path}")
+    else:
+        print(f"Not a directory: {folder_path}")
+\end{lstlisting}
+
+\subsection{HOG Feature Extraction and SVM Training}
+The following pseudocode outlines the process of extracting HOG features and training an SVM classifier:
+
+\begin{lstlisting}[language=Python, caption=HOG Feature Extraction and SVM Training Pseudocode]
+# Extract HOG features
+def extract_hog_features(images, target_size=(128, 128)):
+    hog_features = []
+    for image in images:
+        # Resize the image to a fixed size
+        resized_image = resize(image, target_size, anti_aliasing=True)
+        # Compute HOG features directly for grayscale images
+        features = hog(resized_image, orientations=8, pixels_per_cell=(8, 8), cells_per_block=(1, 1), block_norm='L2-Hys', visualize=False, feature_vector=True)
+        hog_features.append(features)
+    return np.vstack(hog_features)
+
+X_train_hog = extract_hog_features(X_train)
+X_val_hog = extract_hog_features(X_val)
+X_test_hog = extract_hog_features(X_test)
+
+# Train an SVM classifier
+svm_model = SVC(kernel='linear')
+svm_model.fit(X_train_hog, y_train)
+\end{lstlisting}
+
+\section{Results}
+
+\subsection{Visualizations}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{training.png}
+  \caption{Random Training Images}
+  \label{fig:training_images}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{validation.png}
+  \caption{Random Validation Images}
+  \label{fig:validation_images}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{testing.png}
+  \caption{Random Testing Images}
+  \label{fig:testing_images}
+\end{figure}
+
+\subsection{Tables}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    Total Samples (Classes) & 2 (Organic and Recyclable) \\
+    \hline
+    Total Images and Labels & 25076, 25076 \\
+    \hline
+    Training Samples & 18050, 18050 \\
+    \hline
+    Validation Samples & 4513, 4513 \\
+    \hline
+    Testing Samples & 2513, 2513 \\
+    \hline
+  \end{tabular}
+  \caption{Dataset Summary}
+  \label{tab:dataset_summary}
+\end{table}
+
+\subsection{Metrics and Analysis}
+The model is evaluated on the validation and testing sets using metrics such as confusion matrix, accuracy, precision, recall, and F1 score on the SVM Classifier based on HOG feature extraction.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{metrics.png}
+  \caption{Metrics}
+  \label{fig:Metrics: Accuracy, Precision, Recall, F1 Score}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{confusion matrix.png}
+  \caption{Confusion Matrix}
+  \label{fig:Confusion Matrix}
+\end{figure}
+
+\section{Conclusion}
+The waste classification project demonstrates promising results in distinguishing between organic and recyclable waste. The preprocessing steps, feature extraction, and SVM training contribute to the overall success of the model. In Comparison with a basic CNN structure, my model had a good accuracy. The edge CNN has over SVM classifier is its auto feature extraction and kernel adaptation learning in its training which result in CNN model reaching accuracy of classification greater that 90 percent on the same dataset.
+
+\section{CHATGPT Prompts Used}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{prompts1.png}
+  \caption{}
+  \label{fig:Prompts List 1}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{prompts2.png}
+  \caption{}
+  \label{fig:Prompts List 2}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{prompts3.png}
+  \caption{}
+  \label{fig:Prompts List 3}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{prompts4.png}
+  \caption{}
+  \label{fig:Prompts List 4}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{prompts5.png}
+  \caption{}
+  \label{fig:Prompts List 5}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{prompts6.png}
+  \caption{}
+  \label{fig:Prompts List 6}
+\end{figure}
+\section{References}
+\begin{itemize}
+    \item Kaggle Dataset: Waste Classification Data \\
+          \url{https://www.kaggle.com/datasets/techsash/waste-classification-data/code}
+\end{itemize}
+\end{document}
